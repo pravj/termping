@@ -20,20 +20,12 @@ class Objects
 
   plot: ->
     h = @data.length - 1
-    w = @data[0].length
+    w = @data[1].length
     m = Math.floor(w/2) - 5
 
     @data[h-1] = @data[h-1].substr(0, m+8) + @signal + @data[h-1].substr(m+9)
     @data[h] = @data[h].substr(0, m+5) + @paddle + @data[h].substr(m+15)
     @data[h] = @data[h].replace /\s/g, '_'
     @data[0] = @data[0].replace /\s/g, '_'
-
-  move_paddle: (dir) ->
-    h = @data.length - 1
-
-    if dir == 'left'
-      @data[h] = @data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
-    else if dir == 'right'
-      @data[h] = @data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
 
 module.exports = Objects

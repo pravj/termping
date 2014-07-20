@@ -1,23 +1,29 @@
 keypress = require 'keypress'
 
+Movement = require './movement'
 Objects = require './objects'
 Source = require './source'
+Status = require './status'
 
+status = new Status()
+status.set()
 objects = new Objects()
+movement = new Movement(status, objects)
+
 
 class Game
   constructor: ->
-    this.active()
+    this.control()
 
-  active: ->
+  control: ->
     # now 'process.stdin' will start emiting 'keypress' events
     keypress(process.stdin)
 
     process.stdin.on 'keypress', (ch, key) ->
       if key['name'] == 'space'
-        console.log key['name']
+        status.state = !(status.state)
       else if key['name'] == 'left' or key['name'] == 'right'
-        objects.move_paddle(key['name'])
+        movement.paddle(key['name'])
       else
         process.exit()
 
@@ -25,9 +31,11 @@ class Game
     process.stdin.resume()   
 
   pipe: ->
-    new Source(objects.show()).generate()
+    if status.state
+      new Source(objects.show()).generate()
 
-  looop: ->
-    setInterval this.pipe, 70
+  Loop: ->
+    setInterval this.pipe, 100
 
-new Game().looop()
+
+new Game().Loop()
