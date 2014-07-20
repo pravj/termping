@@ -23,6 +23,7 @@ class Objects
     w = @data[0].length
     m = Math.floor(w/2) - 5
 
+    @data[h-1] = @data[h-1].substr(0, m+8) + @signal + @data[h-1].substr(m+9)
     @data[h] = @data[h].substr(0, m+5) + @paddle + @data[h].substr(m+15)
     @data[h] = @data[h].replace /\s/g, '_'
     @data[0] = @data[0].replace /\s/g, '_'
