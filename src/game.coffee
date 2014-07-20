@@ -7,7 +7,7 @@ Status = require './status'
 
 status = new Status()
 status.set()
-objects = new Objects()
+objects = new Objects(status)
 movement = new Movement(status, objects)
 
 
@@ -34,8 +34,13 @@ class Game
     if status.state
       new Source(objects.show()).generate()
 
+  signal: ->
+    if status.state
+      movement.signal()
+
   Loop: ->
     setInterval this.pipe, 100
+    setInterval this.signal, 1000
 
 
 new Game().Loop()

@@ -8,22 +8,22 @@ class Status
     ###
     velocity vector for 'signal' object
     ###
-    @dir =
+    @velocity =
       x: 0
       y: 0
 
     ###
     current position of 'signal' object
     ###
-    @pos =
-      line: 0
+    @current =
+      col: 0
       row: 0
 
   set: ->
-    @dir.y = -1
+    @velocity.x = -1
+    @velocity.y = -1
+
     if Math.floor(Math.random()*2) == 1
-      @dir.x = 1
-    else
-      @dir.x = -1
+      @velocity.x = 1
 
 module.exports = Status
