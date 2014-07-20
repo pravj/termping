@@ -1,5 +1,7 @@
 keypress = require 'keypress'
 
+Objects = require './objects'
+
 # now 'process.stdin' will start emiting 'keypress' events
 keypress(process.stdin)
 
