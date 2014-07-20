@@ -1,0 +1,26 @@
+{
+  "name": "pingpong.term",
+  "version": "0.0.0",
+  "description": "a game of pingpong in your terminal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pravj/pingpong.term.git"
+  },
+  "keywords": [
+    "pingpong",
+    "game",
+    "terminal",
+    "stream",
+    "node",
+    "hack"
+  ],
+  "author": "Pravendra Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pravj/pingpong.term/issues"
+  }
+}
