@@ -34,10 +34,13 @@ class Movement
 
     if next.col >= @status.paddle.start and next.col <= @status.paddle.start + 10
       if next.row == height - 1
-        @status.velocity.y = this.revert(@status.velocity.y)  
+        @status.velocity.y = this.revert(@status.velocity.y)
     if next.col <= -1 or next.col >= width
       @status.velocity.x = this.revert(@status.velocity.x)
-    if next.row <= 0 or next.row >= height
+    if next.row >= height
+      @status.velocity.y = this.revert(@status.velocity.y)
+      process.exit()
+    if next.row <= 0
       @status.velocity.y = this.revert(@status.velocity.y)
 
   signal: ->

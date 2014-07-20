@@ -1,26 +1,36 @@
 {
-  "name": "pingpong.term",
-  "version": "0.0.0",
-  "description": "a game of pingpong in your terminal.",
-  "main": "index.js",
+  "name": "termping",
+  "version": "1.0.0",
+  "description": "A game of pingpong, this time in your terminal.",
+  "author": {
+    "name" :"Pravendra Singh",
+    "email": "hackpravj@gmail.com"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:pravj/pingpong.term.git"
+    "url": "git@github.com:pravj/termping.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pravj/ping.term/issues"
   },
   "keywords": [
-    "pingpong",
+    "pingong",
+    "node-stream",
+    "stream",
     "game",
     "terminal",
-    "stream",
-    "node",
-    "hack"
+    "command-line",
+    "hack",
   ],
-  "author": "Pravendra Singh",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pravj/pingpong.term/issues"
-  }
+  "dependencies": {
+    "keypress": "~0.2.1"
+  },
+  "devDependencies" : {
+    "coffee-script" : "~1.6.3"
+  },
+  "license": "MIT"
 }

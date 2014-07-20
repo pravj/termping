@@ -28,7 +28,7 @@ class Game
         process.exit()
 
     process.stdin.setRawMode(true)
-    process.stdin.resume()   
+    process.stdin.resume()
 
   pipe: ->
     if status.state
@@ -40,7 +40,6 @@ class Game
 
   Loop: ->
     setInterval this.pipe, 100
-    setInterval this.signal, 500
+    setInterval this.signal, 200
 
-
-new Game().Loop()
+module.exports = Game
