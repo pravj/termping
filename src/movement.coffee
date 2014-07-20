@@ -19,8 +19,10 @@ class Movement
       if paddleStart > 0 or paddleStart < w
         if dir == 'left'
           data[h] = data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
+          @status.paddle.start -= 1 
         else if dir == 'right'
           data[h] = data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
+          @status.paddle.start += 1
 
   collision: ->
     width = process.stdout.columns
@@ -30,18 +32,21 @@ class Movement
       col: @status.current.col + @status.velocity.x
       row: @status.current.row + @status.velocity.y
 
+    if next.col >= @status.paddle.start and next.col <= @status.paddle.start + 10
+      if next.row == height - 1
+        @status.velocity.y = this.revert(@status.velocity.y)  
     if next.col <= -1 or next.col >= width
       @status.velocity.x = this.revert(@status.velocity.x)
     if next.row <= 0 or next.row >= height
-      console.log @status.velocity.y
       @status.velocity.y = this.revert(@status.velocity.y)
-      console.log @status.velocity.y
 
   signal: ->
     this.collision()
 
     data = @objects.data
     sig = @objects.signal
+
+    data[@status.current.row] = data[0].replace /_/g, ' '
 
     col = @status.current.col + @status.velocity.x
     row = @status.current.row + @status.velocity.y

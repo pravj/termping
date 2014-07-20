@@ -40,7 +40,7 @@ class Game
 
   Loop: ->
     setInterval this.pipe, 100
-    setInterval this.signal, 1000
+    setInterval this.signal, 500
 
 
 new Game().Loop()

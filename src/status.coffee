@@ -1,5 +1,6 @@
 class Status
   constructor: ->
+
     ###
     current game state : paused or not
     ###
@@ -18,6 +19,13 @@ class Status
     @current =
       col: 0
       row: 0
+
+    ###
+    current position of paddle
+    ###
+    @paddle =
+      start: 0
+      end: 0
 
   set: ->
     @velocity.x = -1
