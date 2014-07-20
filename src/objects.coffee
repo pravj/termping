@@ -27,4 +27,12 @@ class Objects
     @data[h] = @data[h].replace /\s/g, '_'
     @data[0] = @data[0].replace /\s/g, '_'
 
+  move_paddle: (dir) ->
+    h = @data.length - 1
+
+    if dir == 'left'
+      @data[h] = @data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
+    else if dir == 'right'
+      @data[h] = @data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
+
 module.exports = Objects
