@@ -19,6 +19,7 @@ class Objects
       @data[i] += "\n"
 
     this.plot()
+    this.addBlocks()
 
   plot: ->
     h = @data.length - 1
@@ -35,5 +36,18 @@ class Objects
     @data[h] = @data[h].substr(0, m+5) + @paddle + @data[h].substr(m+15)
     @data[h] = @data[h].replace /\s/g, '_'
     @data[0] = @data[0].replace /\s/g, '_'
+
+  addBlocks: ->
+    if process.stdout.rows < 11
+      console.log 'terminal dimension is too little.'
+      process.exit()
+
+    extreme = process.stdout.columns
+    for i in [3...10]
+      @data[i] = @data[i].substr(0, i+5)
+      for j in [i+5...extreme-i-5]
+        @data[i] += @signal
+      @data[i] += "\n"
+      
 
 module.exports = Objects

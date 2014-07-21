@@ -14,15 +14,16 @@ class Movement
       data = @objects.data
       h = data.length - 1
       w = data[1].length - 1
-      paddleStart = data[h].indexOf(@objects.signal)
 
-      if paddleStart > 0 or paddleStart < w
+      if @status.paddle.start > 0 or @status.paddle.start < w
         if dir == 'left'
           data[h] = data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
-          @status.paddle.start -= 1 
+          @status.paddle.start -= 1
         else if dir == 'right'
           data[h] = data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
           @status.paddle.start += 1
+
+        @status.paddle.end = @status.paddle.start + 10
 
   collision: ->
     width = process.stdout.columns
@@ -32,7 +33,7 @@ class Movement
       col: @status.current.col + @status.velocity.x
       row: @status.current.row + @status.velocity.y
 
-    if next.col >= @status.paddle.start and next.col <= @status.paddle.start + 10
+    if next.col >= @status.paddle.start and next.col <= @status.paddle.end
       if next.row == height - 1
         @status.velocity.y = this.revert(@status.velocity.y)
     if next.col <= -1 or next.col >= width

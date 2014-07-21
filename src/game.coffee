@@ -32,6 +32,7 @@ class Game
 
   pipe: ->
     if status.state
+      console.log `"\033c"`
       new Source(objects.show()).generate()
 
   signal: ->

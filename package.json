@@ -32,5 +32,8 @@
   "devDependencies" : {
     "coffee-script" : "~1.6.3"
   },
-  "license": "MIT"
+  "license": {
+    "type": "MIT",
+    "url": "http://pravj.mit-license.org"
+  }
 }
