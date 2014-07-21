@@ -44,13 +44,23 @@ class Movement
     if next.row <= 0
       @status.velocity.y = this.revert(@status.velocity.y)
 
+  traceback: ->
+    row = @status.past.row
+    col = @status.past.col
+    data = @objects.data
+
+    data[row] = data[row].substr(0, col) + ' ' + data[row].substr(col+1)
+
   signal: ->
     this.collision()
 
     data = @objects.data
     sig = @objects.signal
 
-    data[@status.current.row] = data[0].replace /_/g, ' '
+    @status.past.col = @status.current.col
+    @status.past.row = @status.current.row
+
+    this.traceback()
 
     col = @status.current.col + @status.velocity.x
     row = @status.current.row + @status.velocity.y

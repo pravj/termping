@@ -21,7 +21,14 @@ class Status
       row: 0
 
     ###
-    current position of paddle
+    past position of 'signal' object
+    ###
+    @past =
+      col: 0
+      row: 0
+
+    ###
+    current position of 'paddle'
     ###
     @paddle =
       start: 0
