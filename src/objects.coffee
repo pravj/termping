@@ -28,8 +28,8 @@ class Objects
     @status.current.row = h - 1
     @status.current.col = m + 8
 
-    @status.paddle.start = m + 8
-    @status.paddle.end = m + 18
+    @status.paddle.start = m + 5
+    @status.paddle.end = m + 15
 
     @data[h-1] = @data[h-1].substr(0, m+8) + @signal + @data[h-1].substr(m+9)
     @data[h] = @data[h].substr(0, m+5) + @paddle + @data[h].substr(m+15)

@@ -41,6 +41,6 @@ class Game
 
   Loop: ->
     setInterval this.pipe, 100
-    setInterval this.signal, 200
+    setInterval this.signal, 150
 
 module.exports = Game
