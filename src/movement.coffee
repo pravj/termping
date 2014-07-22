@@ -25,7 +25,7 @@ class Movement
 
         @status.paddle.end = @status.paddle.start + 10
 
-  collision: ->
+  borderCollision: ->
     width = process.stdout.columns
     height = process.stdout.rows
 
@@ -52,7 +52,7 @@ class Movement
     data[row] = data[row].substr(0, col) + ' ' + data[row].substr(col+1)
 
   signal: ->
-    this.collision()
+    this.borderCollision()
 
     data = @objects.data
     sig = @objects.signal
