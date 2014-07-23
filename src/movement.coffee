@@ -3,72 +3,86 @@ class Movement
     @status = status
     @objects = objects
 
+    @data = objects.data
+
+    @paddle =
+      start: status.paddle.start
+      end: status.paddle.end
+
+    @velocity =
+      x: status.velocity.x
+      y: status.velocity.y
+
+    @current =
+      col: status.current.col
+      row: status.current.row
+    @past =
+      col: status.past.col
+      row: status.past.row
+
   revert: (vector) ->
     if vector == 1
       vector = -1
     else
       vector = 1
 
-  paddle: (dir) ->
+  move_paddle: (dir) ->
     if @status.state
-      data = @objects.data
-      h = data.length - 1
-      w = data[1].length - 1
+      h = @data.length - 1
+      w = @data[1].length - 1
 
       if dir == 'left'
-        if data[h].indexOf('_▇') != -1
-          data[h] = data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
-          @status.paddle.start -= 1
-          @status.paddle.end = @status.paddle.start + 10
+        if @data[h].indexOf('_▇') != -1
+          @data[h] = @data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
+          @paddle.start -= 1
+          @paddle.end = @paddle.start + 10
       else if dir == 'right'
-        if data[h].indexOf('▇_') != -1
-          data[h] = data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
-          @status.paddle.start += 1
-          @status.paddle.end = @status.paddle.start + 10 
+        if @data[h].indexOf('▇_') != -1
+          @data[h] = @data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
+          @paddle.start += 1
+          @paddle.end = @paddle.start + 10
 
-  borderCollision: ->
+  collision: ->
     width = process.stdout.columns
     height = process.stdout.rows
 
     next =
-      col: @status.current.col + @status.velocity.x
-      row: @status.current.row + @status.velocity.y
+      col: @current.col + @velocity.x
+      row: @current.row + @velocity.y
 
-    if next.col >= @status.paddle.start and next.col <= @status.paddle.end
+    if @current.col >= @paddle.start and @current.col <= @paddle.end
       if next.row == height - 1
-        @status.velocity.y = this.revert(@status.velocity.y)
+        @velocity.y = this.revert(@velocity.y)
     if next.col <= -1 or next.col >= width
-      @status.velocity.x = this.revert(@status.velocity.x)
+      @velocity.x = this.revert(@velocity.x)
     if next.row >= height
-      @status.velocity.y = this.revert(@status.velocity.y)
+      @velocity.y = this.revert(@velocity.y)
       process.exit()
     if next.row <= 0
-      @status.velocity.y = this.revert(@status.velocity.y)
+      @velocity.y = this.revert(@velocity.y)
 
   traceback: ->
-    row = @status.past.row
-    col = @status.past.col
-    data = @objects.data
+    c = @past.col
+    r = @past.row
 
-    data[row] = data[row].substr(0, col) + ' ' + data[row].substr(col+1)
+    @data[r] = @data[r].substr(0, c) + ' ' + @data[r].substr(c+1)
 
-  signal: ->
-    this.borderCollision()
+  move_signal: ->
+    this.collision()
 
-    data = @objects.data
     sig = @objects.signal
 
-    @status.past.col = @status.current.col
-    @status.past.row = @status.current.row
+    @past.col = @current.col
+    @past.row = @current.row
 
     this.traceback()
 
-    col = @status.current.col + @status.velocity.x
-    row = @status.current.row + @status.velocity.y
+    c = @current.col + @velocity.x
+    r = @current.row + @velocity.y
 
-    @status.current.col = col
-    @status.current.row = row
+    @current.col = c
+    @current.row = r
 
-    data[row] = data[row].substr(0, col) + sig + data[row].substr(col+1) 
+    @data[r] = @data[r].substr(0, c) + sig + @data[r].substr(c+1) 
 
 module.exports = Movement

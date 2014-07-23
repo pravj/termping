@@ -23,7 +23,7 @@ class Game
       if key['name'] == 'space'
         status.state = !(status.state)
       else if key['name'] == 'left' or key['name'] == 'right'
-        movement.paddle(key['name'])
+        movement.move_paddle(key['name'])
       else
         process.exit()
 
@@ -37,7 +37,7 @@ class Game
 
   signal: ->
     if status.state
-      movement.signal()
+      movement.move_signal()
 
   Loop: ->
     setInterval this.pipe, 100
