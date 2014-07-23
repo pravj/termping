@@ -15,17 +15,16 @@ class Movement
       h = data.length - 1
       w = data[1].length - 1
 
-      # DUDE, YOU ARE SLEEPY BUT THIS THING NEEDS YOUR ATTENTION
       if dir == 'left'
-        if data[h].indexOf('_▇▇▇▇▇▇▇▇▇▇') != -1
+        if data[h].indexOf('_▇') != -1
           data[h] = data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
           @status.paddle.start -= 1
           @status.paddle.end = @status.paddle.start + 10
       else if dir == 'right'
-        if data[h].indexOf('▇▇▇▇▇▇▇▇▇▇_') != -1
+        if data[h].indexOf('▇_') != -1
           data[h] = data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
           @status.paddle.start += 1
-          @status.paddle.end = @status.paddle.start + 10
+          @status.paddle.end = @status.paddle.start + 10 
 
   borderCollision: ->
     width = process.stdout.columns

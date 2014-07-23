@@ -24,7 +24,7 @@
     "game",
     "terminal",
     "command-line",
-    "hack",
+    "hack"
   ],
   "dependencies": {
     "keypress": "~0.2.1"
