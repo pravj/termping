@@ -28,12 +28,16 @@ class Objects
     @status.current.row = h - 1
     @status.current.col = m + 8
 
-    @status.paddle.start = m + 5
-    @status.paddle.end = m + 15
+    @status.playerPaddle.start = m + 5
+    @status.playerPaddle.end = m + 15
+
+    @status.botPaddle.start = m + 5
+    @status.botPaddle.end = m + 15
 
     @data[h-1] = @data[h-1].substr(0, m+8) + @signal + @data[h-1].substr(m+9)
+    @data[1] = @data[1].substr(0, m+5) + @paddle + @data[1].substr(m+15)
+    @data[0] = @data[0].replace /\s/g, '_'
     @data[h] = @data[h].substr(0, m+5) + @paddle + @data[h].substr(m+15)
     @data[h] = @data[h].replace /\s/g, '_'
-    @data[0] = @data[0].replace /\s/g, '_'
 
 module.exports = Objects

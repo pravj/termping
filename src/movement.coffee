@@ -5,9 +5,15 @@ class Movement
 
     @data = objects.data
 
-    @paddle =
-      start: status.paddle.start
-      end: status.paddle.end
+    @width = process.stdout.columns
+    @height = process.stdout.rows
+
+    @paddleP =
+      start: status.playerPaddle.start
+      end: status.playerPaddle.end
+    @paddleB =
+      start: status.botPaddle.start
+      end: status.botPaddle.end
 
     @velocity =
       x: status.velocity.x
@@ -34,32 +40,55 @@ class Movement
       if dir == 'left'
         if @data[h].indexOf('_▇') != -1
           @data[h] = @data[h].replace /_▇▇▇▇▇▇▇▇▇▇/, '▇▇▇▇▇▇▇▇▇▇_'
-          @paddle.start -= 1
-          @paddle.end = @paddle.start + 10
+          @paddleP.start -= 1
+          @paddleP.end -= 1
       else if dir == 'right'
         if @data[h].indexOf('▇_') != -1
           @data[h] = @data[h].replace /▇▇▇▇▇▇▇▇▇▇_/, '_▇▇▇▇▇▇▇▇▇▇'
-          @paddle.start += 1
-          @paddle.end = @paddle.start + 10
+          @paddleP.start += 1
+          @paddleP.end += 1
 
-  collision: ->
-    width = process.stdout.columns
-    height = process.stdout.rows
-
+  collision_player: ->
     next =
       col: @current.col + @velocity.x
       row: @current.row + @velocity.y
 
-    if @current.col >= @paddle.start and @current.col <= @paddle.end
-      if next.row == height - 1
+    if @current.col >= @paddleP.start and @current.col <= @paddleP.end
+      if next.row == @height - 1
         @velocity.y = this.revert(@velocity.y)
-    if next.col <= -1 or next.col >= width
+
+  collision_computer: ->
+    next =
+      col: @current.col + @velocity.x
+      row: @current.row + @velocity.y
+   
+    if @current.col >= @paddleB.start and @current.col <= @paddleB.end
+      if @current.row == 2
+        @velocity.y = this.revert(@velocity.y)
+    
+  collision_border: ->
+    next =
+      col: @current.col + @velocity.x
+      row: @current.row + @velocity.y
+
+    if next.col <= -1 or next.col >= @width
       @velocity.x = this.revert(@velocity.x)
-    if next.row >= height
+    if @current.row <= 0
       @velocity.y = this.revert(@velocity.y)
       process.exit()
-    if next.row <= 0
+    if next.row >= @height
       @velocity.y = this.revert(@velocity.y)
+      process.exit()
+
+  move_computer: ->
+    if @current.col <= @paddleB.start
+      @data[1] = @data[1].replace ' ▇▇▇▇▇▇▇▇▇▇', '▇▇▇▇▇▇▇▇▇▇ '
+      @paddleB.start -= 1
+      @paddleB.end -= 1
+    else if @current.col >= @paddleB.end
+      @data[1] = @data[1].replace '▇▇▇▇▇▇▇▇▇▇ ', ' ▇▇▇▇▇▇▇▇▇▇'
+      @paddleB.start += 1
+      @paddleB.end += 1
 
   traceback: ->
     c = @past.col
@@ -68,9 +97,9 @@ class Movement
     @data[r] = @data[r].substr(0, c) + ' ' + @data[r].substr(c+1)
 
   move_signal: ->
-    this.collision()
-
-    sig = @objects.signal
+    this.collision_player()
+    this.collision_computer()
+    this.collision_border()
 
     @past.col = @current.col
     @past.row = @current.row
@@ -83,6 +112,6 @@ class Movement
     @current.col = c
     @current.row = r
 
-    @data[r] = @data[r].substr(0, c) + sig + @data[r].substr(c+1) 
+    @data[r] = @data[r].substr(0, c) + @objects.signal + @data[r].substr(c+1)
 
 module.exports = Movement

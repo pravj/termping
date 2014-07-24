@@ -32,15 +32,20 @@ class Game
 
   pipe: ->
     if status.state
-      console.log `"\033c"`
+      #console.log `"\033c"`
       new Source(objects.show()).generate()
 
   signal: ->
     if status.state
       movement.move_signal()
 
+  compute: ->
+    if status.state
+      movement.move_computer()
+
   Loop: ->
     setInterval this.pipe, 100
-    setInterval this.signal, 150
+    setInterval this.signal, 90
+    setInterval this.compute, 95
 
 module.exports = Game

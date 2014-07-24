@@ -28,9 +28,16 @@ class Status
       row: 0
 
     ###
-    current position of 'paddle'
+    current position of Player's paddle
     ###
-    @paddle =
+    @playerPaddle =
+      start: 0
+      end: 0
+
+    ###
+    current position of Computer's paddle
+    ###
+    @botPaddle =
       start: 0
       end: 0
 
