@@ -14,6 +14,7 @@ movement = new Movement(status, objects)
 class Game
   constructor: ->
     this.control()
+    console.log 'Press SpaceBar to start !!'
 
   control: ->
     # now 'process.stdin' will start emiting 'keypress' events
@@ -32,7 +33,7 @@ class Game
 
   pipe: ->
     if status.state
-      #console.log `"\033c"`
+      console.log `"\033c"`
       new Source(objects.show()).generate()
 
   signal: ->
@@ -45,7 +46,7 @@ class Game
 
   Loop: ->
     setInterval this.pipe, 100
-    setInterval this.signal, 90
+    setInterval this.signal, 100
     setInterval this.compute, 95
 
 module.exports = Game

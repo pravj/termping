@@ -73,7 +73,7 @@ class Movement
 
     if next.col <= -1 or next.col >= @width
       @velocity.x = this.revert(@velocity.x)
-    if @current.row <= 0
+    if @current.row <= 1
       @velocity.y = this.revert(@velocity.y)
       process.exit()
     if next.row >= @height
@@ -81,14 +81,16 @@ class Movement
       process.exit()
 
   move_computer: ->
-    if @current.col <= @paddleB.start
-      @data[1] = @data[1].replace ' ▇▇▇▇▇▇▇▇▇▇', '▇▇▇▇▇▇▇▇▇▇ '
-      @paddleB.start -= 1
-      @paddleB.end -= 1
-    else if @current.col >= @paddleB.end
-      @data[1] = @data[1].replace '▇▇▇▇▇▇▇▇▇▇ ', ' ▇▇▇▇▇▇▇▇▇▇'
-      @paddleB.start += 1
-      @paddleB.end += 1
+    dice = Math.floor(Math.random()*20 + 1)
+    if dice > 1
+      if @current.col <= @paddleB.start
+        @data[1] = @data[1].replace ' ▇▇▇▇▇▇▇▇▇▇', '▇▇▇▇▇▇▇▇▇▇ '
+        @paddleB.start -= 1
+        @paddleB.end -= 1
+      else if @current.col >= @paddleB.end
+        @data[1] = @data[1].replace '▇▇▇▇▇▇▇▇▇▇ ', ' ▇▇▇▇▇▇▇▇▇▇'
+        @paddleB.start += 1
+        @paddleB.end += 1
 
   traceback: ->
     c = @past.col
