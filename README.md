@@ -5,7 +5,7 @@
 
 [![NPM version](https://badge.fury.io/js/termping.png)](http://badge.fury.io/js/termping)
 
-![termping](https://github.com/pravj/termping/blob/master/docs/termping.gif)
+![termping](https://raw.githubusercontent.com/pravj/termping/master/docs/termping.gif)
 
 > I am also using [this](http://askubuntu.com/a/107735/65847) thing for creating the gif.
 
