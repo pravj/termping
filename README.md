@@ -3,6 +3,7 @@
 > A game of pingpong. this time, in your terminal.
 > > Read termping's Development Story : [Coming Soon](https://pravj.github.io)
 
+[![NPM version](https://badge.fury.io/js/termping.png)](http://badge.fury.io/js/termping)
 
 ![termping](https://github.com/pravj/termping/blob/master/docs/termping.gif)
 
